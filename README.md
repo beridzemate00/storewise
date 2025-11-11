@@ -1,2 +1,132 @@
-# storewise
+✅ STOREWISE — Fullstack E-Commerce Platform
+# 🏬 StoreWise — Fullstack E-Commerce Platform
 
+A modern **full-stack e-commerce system** featuring a customer storefront, product catalog, cart & checkout, and a secure admin panel for product management.
+
+Built with:
+
+- **React + Vite** (client)
+- **Node.js + Express** (API server)
+- **JWT Authentication**
+- **TailwindCSS** for styling
+- **React Query** for data fetching
+- **Live product API integration**
+- **Walmart-style UI design**
+- **500+ auto-generated products support**
+
+This project is designed for **internships, portfolio showcase, and production-level learning**.
+
+---
+
+## 🚀 Features
+
+### ✅ **Customer Storefront**
+- Modern, responsive UI (Walmart-style)
+- Product list with pagination
+- Product detail page
+- Real images from Unsplash CDN
+- Category + brand filters
+- Sorting by price, rating, popularity
+- Search system
+- Shopping cart
+- Checkout screen
+
+### ✅ **Admin Dashboard**
+- Secure login with JWT
+- Password stored server-side (not in client)
+- Add, edit, delete products
+- Image URL preview
+- Category selection
+- Validation
+- Fully protected admin routes
+
+### ✅ **Backend API**
+- Node + Express REST API
+- CORS enabled
+- JWT-based authentication
+- Secure `/api/auth/me` route
+- CRUD for `/api/products` and `/api/categories`
+- In-memory DB (optional sqlite/mongo upgrade)
+- Seed script support for 500+ products
+
+---
+
+## 📦 Project Structure
+
+
+
+storewise-fullstack/
+│
+├── client/ # React + Vite customer frontend
+│ ├── src/
+│ │ ├── routes/ # Pages
+│ │ ├── components/ # UI components
+│ │ ├── api.js # API wrapper
+│ │ ├── styles/ # Tailwind
+│ │ └── main.jsx # Entry
+│ └── .env # VITE_API_URL
+│
+├── server/ # Node.js Express backend
+│ ├── routes/ # API endpoints
+│ ├── db/ # In-memory or persistent storage
+│ ├── utils/ # Auth helpers
+│ ├── index.js # Server entry
+│ └── .env # ADMIN_PASSWORD, JWT_SECRET
+│
+└── README.md
+
+
+---
+
+## ⚙️ Installation & Setup
+
+### 1️⃣ Clone the repository
+
+```bash
+git clone https://github.com/YOUR-USERNAME/storewise-fullstack.git
+cd storewise-fullstack
+
+🖥️ Backend Setup (Server)
+cd server
+npm install
+
+
+Create .env:
+
+ADMIN_PASSWORD=yourpassword
+JWT_SECRET=your-secret-key
+PORT=4000
+
+
+Run API:
+
+npm run dev
+
+
+API will run at:
+
+http://localhost:4000
+
+
+Check health:
+
+http://localhost:4000/api/health
+
+🌐 Frontend Setup (Client)
+cd ../client
+npm install
+
+
+Create .env:
+
+VITE_API_URL=http://localhost:4000
+
+
+Run frontend:
+
+npm run dev
+
+
+Navigate to:
+
+http://localhost:5173
