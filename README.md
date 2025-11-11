@@ -130,3 +130,90 @@ npm run dev
 Navigate to:
 
 http://localhost:5173
+
+
+All /admin routes are protected.
+
+📡 API Endpoints
+Authentication
+Method	Route	Description
+POST	/api/auth/login	Login admin
+GET	/api/auth/me	Validate token
+Products
+Method	Route	Description
+GET	/api/products	List all products
+POST	/api/products	Create product
+GET	/api/products/:id	Single product
+PUT	/api/products/:id	Update product
+DELETE	/api/products/:id	Delete product
+Categories
+Method	Route	Description
+GET	/api/categories	List categories
+🛠️ Technologies Used
+Frontend
+
+React 18
+
+Vite
+
+React Router
+
+React Query
+
+TailwindCSS
+
+Fetch API
+
+Backend
+
+Node.js + Express
+
+JWT Auth
+
+bcrypt (optional)
+
+CORS
+
+Nodemon
+
+📸 Screenshots (optional)
+
+Add screenshots like:
+
+Home page
+
+Product page
+
+Cart
+
+Admin dashboard
+
+Admin product form
+
+✅ Future Improvements (Nice for internships)
+
+Add payments (Stripe)
+
+Add wishlist system
+
+Multi-user admin roles
+
+Orders database (MongoDB or PostgreSQL)
+
+Image upload (Cloudinary)
+
+Product reviews
+
+📄 License
+
+This project is open source under the MIT License.
+
+🎉 Final Notes
+
+This project is designed to show:
+✅ Frontend + backend skills
+✅ Authentication
+✅ Protected routes
+✅ Real API integration
+✅ Clean architecture
+✅ Production-level thinking
