@@ -4,6 +4,9 @@ import jwt from "jsonwebtoken";
 import "dotenv/config";
 import { v4 as uuidv4 } from "uuid";
 import { seedData, filterAndPaginate } from "./seed.js";
+import Fuse from "fuse.js";
+import Stripe from "stripe";
+const stripe = new Stripe(process.env.STRIPE_SECRET);
 
 const app = express();
 const PORT = process.env.PORT || 4000;
@@ -28,6 +31,48 @@ const db = seedData();
 function signToken() {
   return jwt.sign({ role: "admin" }, JWT_SECRET, { expiresIn: "12h" });
 }
+
+// Create Stripe Checkout Session from cart line items
+app.post("/api/checkout/session", async (req, res) => {
+  try {
+    const items = Array.isArray(req.body?.items) ? req.body.items : [];
+    if (!items.length) return res.status(400).json({ error: "empty_cart" });
+
+    // Build Stripe line_items from product IDs + qty
+    const line_items = items.map(({ id, qty }) => {
+      const p = db.products.find(x => x.id === id);
+      if (!p) return null;
+      return {
+        quantity: Math.max(1, Number(qty) || 1),
+        price_data: {
+          currency: "usd",
+          unit_amount: Number(p.price), // cents already in your seed
+          product_data: {
+            name: p.title,
+            images: p.image ? [p.image] : [],
+            metadata: { pid: p.id, brand: p.brand || "Generic" },
+          }
+        }
+      };
+    }).filter(Boolean);
+
+    if (!line_items.length) return res.status(400).json({ error: "invalid_items" });
+
+    const session = await stripe.checkout.sessions.create({
+      mode: "payment",
+      line_items,
+      success_url: `${process.env.FRONTEND_URL}/checkout?success=1`,
+      cancel_url: `${process.env.FRONTEND_URL}/checkout?canceled=1`,
+      // You can add customer_email, automatic_tax, shipping options, etc.
+    });
+
+    res.json({ url: session.url });
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({ error: "stripe_error" });
+  }
+});
+
 
 function requireAuth(req, res, next) {
   const auth = req.headers.authorization || "";
@@ -129,4 +174,24 @@ app.delete("/api/products/:id", requireAuth, (req, res) => {
 
 app.listen(PORT, () => {
   console.log(`StoreWise server running http://localhost:${PORT}`);
+});
+app.get("/api/search", (req, res) => {
+  const q = String(req.query.q || "").trim();
+  if (!q) return res.json({ items: [], total: 0 });
+  const limit = Math.min(Number(req.query.limit || 50), 100);
+  const results = fuse.search(q).slice(0, limit).map(r => r.item);
+  res.json({ items: results, total: results.length });
+});
+
+
+// Fuzzy search index
+const fuse = new Fuse(db.products, {
+  keys: [
+    { name: "title", weight: 0.6 },
+    { name: "brand", weight: 0.3 },
+    { name: "description", weight: 0.1 },
+  ],
+  threshold: 0.35,          // lower = stricter
+  includeScore: true,
+  minMatchCharLength: 2,
 });

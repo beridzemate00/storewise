@@ -74,3 +74,9 @@ export async function deleteProduct(id) {
   if (!res.ok) throw new Error("Delete failed");
   return true;
 }
+
+export async function searchProducts(q, limit = 50) {
+  const res = await fetch(`${API_URL}/api/search?q=${encodeURIComponent(q)}&limit=${limit}`);
+  if (!res.ok) throw new Error("Search failed");
+  return res.json();
+}
