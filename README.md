@@ -1,20 +1,37 @@
-✅ STOREWISE — Fullstack E-Commerce Platform
-# 🏬 StoreWise — Fullstack E-Commerce Platform
+# 🏬 StoreWise — Fullstack E-Commerce (Search · Animations · Stripe)
 
-A modern **full-stack e-commerce system** featuring a customer storefront, product catalog, cart & checkout, and a secure admin panel for product management.
+A modern full-stack e-commerce app with:
+- ✅ Walmart-style storefront
+- ✅ **Fuzzy search** (Fuse.js)
+- ✅ **Premium UI** with **Framer Motion** animations
+- ✅ **Stripe Checkout** payments
+- ✅ Secure **admin** (JWT) with product CRUD
 
-Built with:
+## ✨ Demo Features
+- Product catalog, filters, pagination
+- Cart with live subtotal
+- Product details
+- Protected admin routes (/admin)
+- Create/Edit/Delete products
+- Real images via Unsplash CDN
+- Fuzzy search across title/brand/description
+- Stripe-hosted checkout (success/cancel redirect)
 
-- **React + Vite** (client)
-- **Node.js + Express** (API server)
-- **JWT Authentication**
-- **TailwindCSS** for styling
-- **React Query** for data fetching
-- **Live product API integration**
-- **Walmart-style UI design**
-- **500+ auto-generated products support**
+---
 
-This project is designed for **internships, portfolio showcase, and production-level learning**.
+## 🧱 Tech
+**Client:** React 18, Vite, React Router, React Query, Zustand, Framer Motion  
+**Server:** Node.js, Express, JWT, Fuse.js, Stripe  
+**Styling:** Lightweight CSS (no heavy UI deps)
+
+---
+
+## ⚙️ Setup
+
+### 1) Server
+```bash
+cd server
+npm install
 
 ---
 
