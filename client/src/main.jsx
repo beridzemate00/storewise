@@ -5,7 +5,7 @@ import { createBrowserRouter, RouterProvider, redirect } from "react-router-dom"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 import App from "./routes/App.jsx";
-import Home from "./routes/store/Home.jsx";
+// import Home from "./routes/store/Home.jsx";
 import ProductDetail from "./routes/store/ProductDetail.jsx";
 import Cart from "./routes/store/Cart.jsx";
 import Checkout from "./routes/store/Checkout.jsx";
@@ -30,7 +30,7 @@ const router = createBrowserRouter([
     path: "/",
     element: <App />,
     children: [
-      { index: true, element: <Home /> },
+      // { index: true, element: <Home /> },
       { path: "product/:id", element: <ProductDetail /> },
       { path: "cart", element: <Cart /> },
       { path: "checkout", element: <Checkout /> },
